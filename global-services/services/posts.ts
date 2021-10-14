@@ -1,6 +1,6 @@
-import AxiosHttpClient from './axios-client';
+import { HttpGetClient } from './client';
 
-export default (httpClient: AxiosHttpClient) => ({
+export default (httpClient: HttpGetClient) => ({
   getAll() {
     return httpClient.get({ url: '/posts' });
   },
