@@ -9,7 +9,6 @@
 import { Component, Vue } from 'vue-property-decorator';
 import { setEmail } from '../stores/users';
 import { setPosts, setLoading, setError } from '../stores/posts';
-import services from '../services/index';
 
 import Header from './components/Header.vue';
 import Content from './components/Content.vue';
@@ -24,7 +23,7 @@ import Content from './components/Content.vue';
     setTimeout(async () => {
       try {
         setLoading(true);
-        const posts = await services.posts.getAll();
+        const posts = await this.$services.posts.getAll();
         setPosts(posts);
       } catch (err) {
         setError(!!err);
