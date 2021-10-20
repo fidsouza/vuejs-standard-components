@@ -2,6 +2,7 @@
   <div>
     <custom-header></custom-header>
     <Content />
+    <loading />
   </div>
 </template>
 
@@ -9,23 +10,28 @@
 import { Component, Vue } from 'vue-property-decorator';
 import { setEmail } from '../stores/users';
 import { setPosts, setLoading, setError } from '../stores/posts';
-
 import Header from './components/Header.vue';
 import Content from './components/Content.vue';
+import Loading from './components/Loading.vue';
 
 @Component({
   name: 'app',
   components: {
     customHeader: Header,
     Content,
+    Loading,
   },
   mounted() {
     setTimeout(async () => {
       try {
         setLoading(true);
+        this.$g.loading.show();
         const posts = await this.$services.posts.getAll();
         setPosts(posts);
+        this.$g.loading.hide();
       } catch (err) {
+        console.log(err);
+
         setError(!!err);
       } finally {
         setLoading(false);
