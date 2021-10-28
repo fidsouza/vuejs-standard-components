@@ -25,10 +25,8 @@ import Loading from './components/Loading.vue';
     setTimeout(async () => {
       try {
         setLoading(true);
-        this.$g.loading.show();
         const posts = await this.$services.posts.getAll();
         setPosts(posts);
-        this.$g.loading.hide();
       } catch (err) {
         console.log(err);
 
