@@ -1,6 +1,17 @@
 <template>
   <div class="container">
     <h1>Scoped Slots</h1>
+    <loading></loading>
+    <QueryRenderer entity="posts" action="getAll">
+      <template v-slot="{ data, hasError }">
+        <p v-if="hasError">Deu Ruim</p>
+        <div v-if="!hasError">
+          <ul>
+            <li v-for="post in data" :key="post.id">{{ post.title }}</li>
+          </ul>
+        </div>
+      </template>
+    </QueryRenderer>
     <with-mouse>
       <div
         class="box"
@@ -14,9 +25,11 @@
 <script lang="ts">
 import Vue from 'vue';
 import WithMouse from './components/WithMouse.vue';
+import QueryRenderer from './components/QueryRender.vue';
+import Loading from './components/Loading.vue';
 
 export default Vue.extend({
-  components: { WithMouse },
+  components: { WithMouse, QueryRenderer, Loading },
   name: 'App',
 });
 </script>
